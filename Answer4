@@ -1,0 +1,20 @@
+## Script Name: plot04.R
+## Version: 1.0_14
+
+## Libraries needed:
+library(plyr)
+library(ggplot2)
+
+## Step 1: read in the data
+NEI <- readRDS("expdata_prj2/summarySCC_PM25.rds")
+SCC <- readRDS("expdata_prj2/Source_Classification_Code.rds")
+
+## Step 2: subset our data for only coal-combustion
+coalcomb.scc <- subset(SCC, EI.Sector %in% c("Fuel Comb - Comm/Instutional - Coal", 
+  "Fuel Comb - Electric Generation - Coal", "Fuel Comb - Industrial Boilers, ICEs - 
+  Coal"))
+
+## Step 3: comparisons so that we didn't ommit anything weird
+coalcomb.scc1 <- subset(SCC, grepl("Comb", Short.Name) & grepl("Coal", Short.Name))
+
+nrow(coalcomb.scc) #evaluate: rows 0
